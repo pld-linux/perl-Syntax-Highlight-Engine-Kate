@@ -1,0 +1,52 @@
+--- Syntax-Highlight-Engine-Kate-0.07/lib/Syntax/Highlight/Engine/Kate.pm	2012-09-23 20:01:18.000000000 +1000
++++ Syntax-Highlight-Engine-Kate-inse/lib/Syntax/Highlight/Engine/Kate.pm	2013-05-02 11:47:22.117779928 +1000
+@@ -616,11 +616,30 @@
+ }
+ 
+ sub languagePlug {
+-	my ($self, $req) = @_;
++	my ($self, $req, $insensitive) = @_;
++
+ 	unless (exists($self->{'syntaxes'}->{$req})) {
+-		warn "undefined language: $req";
+-		return undef;
++		if (defined($insensitive) && $insensitive) {
++			my $matched = 0;
++			foreach my $key (keys(%{$self->{'syntaxes'}})) {
++				if ($key =~ /^$req$/i) {
++					warn "substituting language $key for $req";
++					$req = $key;
++					$matched = 1;
++					last;
++				}
++			}
++
++			unless ($matched) {
++				warn "undefined language: $req";
++				return undef;
++			}
++		} else {
++			warn "undefined language: $req";
++			return undef;
++		}
+ 	}
++
+ 	return $self->{'syntaxes'}->{$req};
+ }
+ 
+@@ -804,9 +823,13 @@
+ 
+ returns a list of languages for which plugins have been defined.
+ 
+-=item B<languagePlug>(I<$language>);
++=item B<languagePlug>(I<$language>, I<?$insensitive?>);
++
++Returns the module name of the plugin for B<$language>.
++
++If B<$insensitive> is set it will also try to match names ignoring case and return the correct module name of the plugin.
+ 
+-returns the module name of the plugin for B<$language>
++e.g. $highlighter->languagePlug('HtMl', 1); will return 'HTML'.
+ 
+ =item B<languagePropose>(I<$filename>);
+ 
