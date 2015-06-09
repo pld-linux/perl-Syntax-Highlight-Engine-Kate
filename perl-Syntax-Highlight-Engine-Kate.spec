@@ -8,14 +8,13 @@
 Summary:	Syntax::Highlight::Engine::Kate - a port to Perl of the syntax highlight engine of the Kate texteditor
 Summary(pl.UTF-8):	Syntax::Highlight::Engine::Kate - perlowy port silnika podświetlania składni z edytora Kate
 Name:		perl-Syntax-Highlight-Engine-Kate
-Version:	0.08
-Release:	2
+Version:	0.09
+Release:	1
 # same as perl 5.8.3+
 License:	GPL v1+ or Artistic
 Group:		Development/Languages/Perl
 Source0:	http://www.cpan.org/modules/by-module/Syntax/%{pdir}-%{pnam}-%{version}.tar.gz
-# Source0-md5:	717f969580fb5894c818fbbc627cc37e
-Patch0:		%{name}-insensitive.patch
+# Source0-md5:	638f8cf2b3546dab0da850554d7a4a55
 URL:		http://search.cpan.org/dist/Syntax-Highlight-Engine-Kate/
 BuildRequires:	perl-ExtUtils-MakeMaker >= 6.59
 BuildRequires:	perl-devel >= 1:5.8.0
@@ -23,7 +22,8 @@ BuildRequires:	rpm-perlprov >= 4.1-13
 %if %{with tests}
 BuildRequires:	perl-Term-ANSIColor
 BuildRequires:	perl-Test-Differences >= 0.61
-BuildRequires:	perl-Test-Simple >= 0.88
+BuildRequires:	perl-Test-Simple >= 1.00
+BuildRequires:	perl-Test-Warn >= 0.30
 %endif
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -45,7 +45,6 @@ modułu.
 
 %prep
 %setup -q -n %{pdir}-%{pnam}-%{version}
-%patch0 -p1
 
 %build
 %{__perl} Makefile.PL \
