@@ -4,7 +4,6 @@
 #
 %define		pdir	Syntax
 %define		pnam	Highlight-Engine-Kate
-%include	/usr/lib/rpm/macros.perl
 Summary:	Syntax::Highlight::Engine::Kate - a port to Perl of the syntax highlight engine of the Kate texteditor
 Summary(pl.UTF-8):	Syntax::Highlight::Engine::Kate - perlowy port silnika podświetlania składni z edytora Kate
 Name:		perl-Syntax-Highlight-Engine-Kate
